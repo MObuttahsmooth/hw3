@@ -72,7 +72,7 @@ public class Server {
       }
 
       if(productQuantity.compareTo(quantityRequested)){
-        return "Not Available - Not enough items"
+        return "Not Available - Not enough items";
       }
 
       int myOrderNumber = currentOrder.getAndIncrement();

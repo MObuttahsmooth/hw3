@@ -32,7 +32,7 @@ public class ServerThread implements Runnable {
           Server.search(splitIn);
         } 
         else if (splitIn[0].equals("list")) {
-          Server.list();
+          Server.list(splitIn);
         } 
         else {
           System.out.println("ERROR: No such command");
