@@ -23,13 +23,10 @@ public class Client {
       //Default: Connect to TCP Socket
       Socket socket = new Socket(hostAddress, tcpPort);
       PrintWriter out =
-        new PrintWriter(echoSocket.getOutputStream(), true);
+        new PrintWriter(socket.getOutputStream(), true);
       BufferedReader in =
           new BufferedReader(
-              new InputStreamReader(echoSocket.getInputStream()));
-      BufferedReader stdIn =
-          new BufferedReader(
-              new InputStreamReader(System.in))
+              new InputStreamReader(socket.getInputStream()));
       //TODO:Go ahead and connec to the UDP Socket as well
 
     ) {
@@ -39,21 +36,46 @@ public class Client {
         String cmd = sc.nextLine();
         String[] tokens = cmd.split(" ");
 
+        // setmode T|U – sets the protocol for communication with the server. The protocol is specified
+        // by the letter U ot T where U stands for UDP and T stands for TCP. The default mode of
+        // communication is TCP.
         if (tokens[0].equals("setmode")) {
           // TODO: set the mode of communication for sending commands to the server 
           // and display the name of the protocol that will be used in future
+          if(tokens[1].equals("T")){
+            communicationMode = "TCP";
+          }
+          else{
+            communicationMode = "UDP";
+          }
         }
         else if (tokens[0].equals("purchase")) {
+          //TCP IMPLEMENTATION
+          out.println("purchase " + tokens[1] + " " + tokens[2] + " " + tokens[3]);
+          //UDP IMPLEMENTATION
 
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else if (tokens[0].equals("cancel")) {
+          //TCP IMPLEMENATION
+          out.println("cancel " + tokens[1]);
+          //UDP IMPLEMENTATION
+
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else if (tokens[0].equals("search")) {
+          //TCP IMPLEMENTATION
+          out.println("search " + tokens[1]);
+          //UDP IMPLMENTATION
+
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else if (tokens[0].equals("list")) {
+          //TCP IMPLEMENTATION
+          out.println("list");
+
+          //UDP IMPLEMENATION
+
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else {
