@@ -5,6 +5,7 @@ import java.util.*;
 public class Server {
 
   public static Map<String, Integer> inventory = new HashMap<String, Integer>();
+  public static Map<String, String> userOrders = new HashMap<String, String>();
   public static void main (String[] args) {
     int tcpPort;
     int udpPort;
