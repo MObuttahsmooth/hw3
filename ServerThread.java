@@ -21,6 +21,7 @@ public class ServerThread implements Runnable {
       String inputLine, outputLine;
       while ((inputLine = in.readLine()) != null) {
         String[] splitIn = inputLine.split(" ");
+<<<<<<< HEAD
         if (splitIn[0].equals("purchase")) {
           Server.purchase(splitIn);
         }
@@ -31,6 +32,21 @@ public class ServerThread implements Runnable {
         else if (splitIn[0].equals("search")) {
           Server.search(splitIn);
         } 
+=======
+
+        if (splitIn[0].equals("purchase")) {
+          Server.purchase(splitIn);
+        }
+
+        else if (splitIn[0].equals("cancel")) {
+          Server.cancel(splitIn);
+        } 
+
+        else if (splitIn[0].equals("search")) {
+          Server.search(splitIn);
+        } 
+
+>>>>>>> 805a68ed98df811347fade887fcae29533ee1601
         else if (splitIn[0].equals("list")) {
           Server.list();
         } 
