@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 public class Server {
 
   public static Map<String, Integer> inventory = new ConcurrentHashMap<String, Integer>();
-  public static Map<String, String> userOrders = new ConcurrentHashMap<String, String>();
+  public static Map<Integer, Order> userOrders = new ConcurrentHashMap<Integer, Order>();
   public static void main (String[] args) {
     int tcpPort;
     int udpPort;
