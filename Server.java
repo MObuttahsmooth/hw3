@@ -14,17 +14,6 @@ public class Server {
       System.out.println("\t(2) <udpPort>: the port number for UDP connection");
       System.out.println("\t(3) <file>: the file of inventory");
 
-      //BEGIN ESTABLISHING SERVER
-      try{
-        ServerSocket serverSocket = new ServerSocket(4444);
-        while(true){
-          Socket clientSocket = serverSocket.accept();
-
-
-        }
-
-      }
-
       System.exit(-1);
     }
     tcpPort = Integer.parseInt(args[0]);
