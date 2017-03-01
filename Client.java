@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.*;
+import java.net.*;
 
 public class Client {
   public static void main (String[] args) {
@@ -28,13 +30,13 @@ public class Client {
           new BufferedReader(
               new InputStreamReader(socket.getInputStream()));
       //TODO:Go ahead and connec to the UDP Socket as well
-    ) {
+    ){
 
       Scanner sc = new Scanner(System.in);
       while(sc.hasNextLine()) {
         String cmd = sc.nextLine();
         String[] tokens = cmd.split(" ");
-
+        System.out.println(cmd);
         // setmode T|U – sets the protocol for communication with the server. The protocol is specified
         // by the letter U ot T where U stands for UDP and T stands for TCP. The default mode of
         // communication is TCP.
@@ -97,6 +99,8 @@ public class Client {
         }
     }
 
+    } catch(Exception e){
+        e.printStackTrace();
     }
     
     

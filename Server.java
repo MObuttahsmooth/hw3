@@ -2,6 +2,7 @@ import java.net.*;
 import java.io.*;
 import java.util.*; 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
 
 public class Server {
 
@@ -43,6 +44,7 @@ public class Server {
     try (ServerSocket serverSocket = new ServerSocket(4444)){
       while(true){
         Thread thread = new Thread(new ServerThread(serverSocket.accept()));
+        System.out.println("Accepted");
         thread.start();
       }
     } catch(IOException e){
@@ -71,7 +73,7 @@ public class Server {
         return "Not Available - We do not sell this product";
       }
 
-      if(productQuantity.compareTo(quantityRequested)){
+      if(productQuantity.compareTo(quantityRequested) < 0){
         return "Not Available - Not enough items";
       }
 
@@ -116,7 +118,7 @@ public class Server {
       String thisOrderUser = userOrders.get(orderID).user;
       //Order belongs to user
       if(thisOrderUser.equals(user)){
-        orders.add(new Order(userOrders.get(orderID)));
+        orders.add(userOrders.get(orderID));
       }
     }
     //User had no orders
@@ -130,13 +132,13 @@ public class Server {
       for(int i = 0; i < orders.size()-1; i++){
         String orderToAdd = "" + orders.get(i).id + ", ";
         orderToAdd += orders.get(i).productName + ", ";
-        orderToAdd += order.get(i).quantity + "\n";
+        orderToAdd += orders.get(i).quantity + "\n";
         ordersStringsAggregated += orderToAdd;
       }
       //Last order, no new line character at end
-      ordersStringsAggregated += "" + orders.get(i).id + ", ";
-      orderToAdd += orders.get(i).productName + ", ";
-      orderToAdd += order.get(i).quantity;
+      ordersStringsAggregated += "" + orders.get(orders.size()-1).id + ", ";
+      ordersStringsAggregated += orders.get(orders.size()-1).productName + ", ";
+      ordersStringsAggregated += orders.get(orders.size()-1).quantity;
       return ordersStringsAggregated;
     }
   }
