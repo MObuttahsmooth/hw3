@@ -47,7 +47,21 @@ public class Server {
     } catch(IOException e){
         e.printStackTrace();
     }
+  }
 
-    
+  public static synchronized String purchase(String[] st){
+    return null;
+  }
+
+  public static synchronized String cancel(String[] st){
+    return null;
+  }
+
+  public static synchronized String search(String[] st){
+    return null;
+  }
+
+  public static synchronized void list(){
+
   }
 }
