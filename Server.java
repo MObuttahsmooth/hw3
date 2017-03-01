@@ -87,7 +87,22 @@ public class Server {
     // cancel <order-id> – cancels the order with the <order-id>. If there is no existing order
     // with the id, the response is: ‘<order-id> not found, no such order’. Otherwise, the server
     // replies: ‘Order <order-id> is canceled’ and updates the inventory
-    return null;
+    Integer orderID = new Integer(Integer.parseInt(st[1]));
+    Order toBeCancelled = userOrders.get(orderID);
+    //Order not found
+    if(toBeCancelled == null){
+      return "" + orderID + " not found, no such order";
+    }
+    //Order found
+    else{
+      //Restore quantity cancelled to order
+      String product = toBeCancelled.productName;
+      Integer newAmountOfProduct = inventory.get(toBeCancelled.productName).intValue() + toBeCancelled.quantity;
+      inventory.put(product, newAmountOfProduct);
+      //Nullify order in userOrders
+      userOrders.put(orderID, null);
+      return "Order " + orderID + " is canceled";
+    }
   }
 
   public static synchronized String search(String[] st){
@@ -95,7 +110,35 @@ public class Server {
     // system responds with a message: ‘No order found for <user-name>’. Otherwise, list all orders
     // of the users as <order-id>, <product-name>, <quantity>. Note that, you should print one
     // line per order.
-    return null;
+    String user = st[1];
+    List<Order> orders = new ArrayList<Order>();
+    for(Integer orderID: userOrders.keySet()){
+      String thisOrderUser = userOrders.get(orderID).user;
+      //Order belongs to user
+      if(thisOrderUser.equals(user)){
+        orders.add(new Order(userOrders.get(orderID)));
+      }
+    }
+    //User had no orders
+    if(orders.size() == 0){
+      return "No order found for " + user;
+    }
+    //User had orders
+    else{
+      //All orders added to string followed by new line character (except last order)
+      String ordersStringsAggregated = "";
+      for(int i = 0; i < orders.size()-1; i++){
+        String orderToAdd = "" + orders.get(i).id + ", ";
+        orderToAdd += orders.get(i).productName + ", ";
+        orderToAdd += order.get(i).quantity + "\n";
+        ordersStringsAggregated += orderToAdd;
+      }
+      //Last order, no new line character at end
+      ordersStringsAggregated += "" + orders.get(i).id + ", ";
+      orderToAdd += orders.get(i).productName + ", ";
+      orderToAdd += order.get(i).quantity;
+      return ordersStringsAggregated;
+    }
   }
   
   public static synchronized String list(String[] st){
