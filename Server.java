@@ -1,4 +1,9 @@
+import java.io.*;
+import java.util.*; 
+
 public class Server {
+
+  public static Map<String, Integer> inventory = new HashMap<String, Integer>();
   public static void main (String[] args) {
     int tcpPort;
     int udpPort;
@@ -15,7 +20,20 @@ public class Server {
     String fileName = args[2];
 
     // parse the inventory file
+    File file = new File(fileName);
+    Scanner fileScanner = null;
+    try{
+      fileScanner = new Scanner(file);
+    }catch(Exception e){
+      System.out.println("ERROR: File Not Found");
+      System.exit(-1);
+    }
 
+    while(fileScanner.hasNext()){
+      String input = fileScanner.nextLine();
+      String[] splitInput = input.split(" ");
+      inventory.put(splitInput[0], Integer.parseInt(splitInput[1]));
+    }
     // TODO: handle request from clients
   }
 }
