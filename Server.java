@@ -46,7 +46,7 @@ public class Server {
     
   }
 
-  public class ServerThread implements Runnable {
+  class ServerThread implements Runnable {
     Socket socket = null;
 
     public ServerThread(Socket socket){
