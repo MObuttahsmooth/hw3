@@ -50,31 +50,46 @@ public class Client {
         }
         else if (tokens[0].equals("purchase")) {
           //TCP IMPLEMENTATION
-          out.println("purchase " + tokens[1] + " " + tokens[2] + " " + tokens[3]);
+          if(communicationMode.equals("TCP")){
+            out.println("purchase " + tokens[1] + " " + tokens[2] + " " + tokens[3]);
+          }
           //UDP IMPLEMENTATION
+          else{
 
+          }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else if (tokens[0].equals("cancel")) {
           //TCP IMPLEMENATION
-          out.println("cancel " + tokens[1]);
+          if(communicationMode.equals("TCP")){
+            out.println("cancel " + tokens[1]);
+          }
           //UDP IMPLEMENTATION
+          else{
 
+          }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else if (tokens[0].equals("search")) {
           //TCP IMPLEMENTATION
-          out.println("search " + tokens[1]);
+          if(communicationMode.equals("TCP")){
+            out.println("search " + tokens[1]);
+          }
           //UDP IMPLMENTATION
+          else{
 
+          }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else if (tokens[0].equals("list")) {
           //TCP IMPLEMENTATION
-          out.println("list");
-
+          if(communicationMode.equals("TCP")){
+            out.println("list");
+          }
           //UDP IMPLEMENATION
-
+          else{
+            
+          }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else {
