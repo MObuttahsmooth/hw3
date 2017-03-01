@@ -22,17 +22,21 @@ public class ServerThread implements Runnable {
       while ((inputLine = in.readLine()) != null) {
         String[] splitIn = inputLine.split(" ");
         if (splitIn[0].equals("purchase")) {
-          Server.purchase(splitIn);
+          outputLine = Server.purchase(splitIn);
+          System.out.println(outputLine);
         }
         else if (splitIn[0].equals("cancel")) {
-          Server.cancel(splitIn);
+          outputLine = Server.cancel(splitIn);
+          System.out.println(outputLine);
         } 
 
         else if (splitIn[0].equals("search")) {
-          Server.search(splitIn);
+          outputLine = Server.search(splitIn);
+          System.out.println(outputLine);
         } 
         else if (splitIn[0].equals("list")) {
-          Server.list(splitIn);
+          outputLine = Server.list(splitIn);
+          System.out.println(outputLine);
         } 
         else {
           System.out.println("ERROR: No such command");
