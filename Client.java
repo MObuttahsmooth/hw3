@@ -22,6 +22,14 @@ public class Client {
     try (
       //Default: Connect to TCP Socket
       Socket socket = new Socket(hostAddress, tcpPort);
+      PrintWriter out =
+        new PrintWriter(echoSocket.getOutputStream(), true);
+      BufferedReader in =
+          new BufferedReader(
+              new InputStreamReader(echoSocket.getInputStream()));
+      BufferedReader stdIn =
+          new BufferedReader(
+              new InputStreamReader(System.in))
       //TODO:Go ahead and connec to the UDP Socket as well
 
     ) {
