@@ -28,7 +28,6 @@ public class Client {
           new BufferedReader(
               new InputStreamReader(socket.getInputStream()));
       //TODO:Go ahead and connec to the UDP Socket as well
-
     ) {
 
       Scanner sc = new Scanner(System.in);
