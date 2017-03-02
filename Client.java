@@ -7,7 +7,9 @@ public class Client {
     String hostAddress;
     int tcpPort;
     int udpPort;
+    byte[] rbuffer = new byte[1024];
     String communicationMode = "TCP";
+    DatagramPacket sPacket, rPacket;
 
     if (args.length != 3) {
       System.out.println("ERROR: Provide 3 arguments");
@@ -23,13 +25,14 @@ public class Client {
 
     try (
       //Default: Connect to TCP Socket
-      Socket socket = new Socket(hostAddress, tcpPort);
-      PrintWriter out =
-        new PrintWriter(socket.getOutputStream(), true);
-      BufferedReader in =
-          new BufferedReader(
-              new InputStreamReader(socket.getInputStream()));
-      //TODO:Go ahead and connec to the UDP Socket as well
+      // Socket socket = new Socket(hostAddress, tcpPort);
+      // PrintWriter out =
+      //   new PrintWriter(socket.getOutputStream(), true);
+      // BufferedReader in =
+      //     new BufferedReader(
+      //         new InputStreamReader(socket.getInputStream()));
+      //TODO:Go ahead and connect to the UDP Socket as well
+      DatagramSocket udpSocket = new DatagramSocket();
     ){
 
       Scanner sc = new Scanner(System.in);
@@ -53,44 +56,76 @@ public class Client {
         else if (tokens[0].equals("purchase")) {
           //TCP IMPLEMENTATION
           if(communicationMode.equals("TCP")){
-            out.println("purchase " + tokens[1] + " " + tokens[2] + " " + tokens[3]);
+            //out.println("purchase " + tokens[1] + " " + tokens[2] + " " + tokens[3]);
           }
           //UDP IMPLEMENTATION
           else{
-
+            byte[] buffer = new byte[cmd.length()];
+            buffer = cmd.getBytes();
+            sPacket = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostAddress), udpPort);
+            udpSocket.send(sPacket);
+            System.out.println("Sent UDP Packet");
+            rPacket = new DatagramPacket(rbuffer, rbuffer.length);
+            udpSocket.receive(rPacket);
+            String retstring = new String(rPacket.getData(), 0, rPacket.getLength());
+            System.out.println("Received from Server:" + retstring);
           }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else if (tokens[0].equals("cancel")) {
           //TCP IMPLEMENATION
           if(communicationMode.equals("TCP")){
-            out.println("cancel " + tokens[1]);
+            //out.println("cancel " + tokens[1]);
           }
           //UDP IMPLEMENTATION
           else{
-
+            byte[] buffer = new byte[cmd.length()];
+            buffer = cmd.getBytes();
+            sPacket = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostAddress), udpPort);
+            udpSocket.send(sPacket);
+            System.out.println("Sent UDP Packet");
+            rPacket = new DatagramPacket(rbuffer, rbuffer.length);
+            udpSocket.receive(rPacket);
+            String retstring = new String(rPacket.getData(), 0, rPacket.getLength());
+            System.out.println("Received from Server:" + retstring);
           }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else if (tokens[0].equals("search")) {
           //TCP IMPLEMENTATION
           if(communicationMode.equals("TCP")){
-            out.println("search " + tokens[1]);
+            //out.println("search " + tokens[1]);
           }
           //UDP IMPLMENTATION
           else{
-
+            byte[] buffer = new byte[cmd.length()];
+            buffer = cmd.getBytes();
+            sPacket = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostAddress), udpPort);
+            udpSocket.send(sPacket);
+            System.out.println("Sent UDP Packet");
+            rPacket = new DatagramPacket(rbuffer, rbuffer.length);
+            udpSocket.receive(rPacket);
+            String retstring = new String(rPacket.getData(), 0, rPacket.getLength());
+            System.out.println("Received from Server:" + retstring);
           }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else if (tokens[0].equals("list")) {
           //TCP IMPLEMENTATION
           if(communicationMode.equals("TCP")){
-            out.println("list");
+            //out.println("list");
           }
           //UDP IMPLEMENATION
           else{
-            
+            byte[] buffer = new byte[cmd.length()];
+            buffer = cmd.getBytes();
+            sPacket = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostAddress), udpPort);
+            udpSocket.send(sPacket);
+            System.out.println("Sent UDP Packet: " + new String(buffer));
+            rPacket = new DatagramPacket(rbuffer, rbuffer.length);
+            udpSocket.receive(rPacket);
+            String retstring = new String(rPacket.getData(), 0, rPacket.getLength());
+            System.out.println("Received from Server:" + retstring);
           }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
@@ -109,4 +144,5 @@ public class Client {
 
     
   }
+
 }
