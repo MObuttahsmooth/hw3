@@ -71,11 +71,12 @@ public class Client {
             buffer = cmd.getBytes();
             sPacket = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostAddress), udpPort);
             udpSocket.send(sPacket);
-            System.out.println("Sent UDP Packet");
+            //System.out.println("Sent UDP Packet");
             rPacket = new DatagramPacket(rbuffer, rbuffer.length);
             udpSocket.receive(rPacket);
             String retstring = new String(rPacket.getData(), 0, rPacket.getLength());
-            System.out.println("Received from Server:" + retstring);
+            System.out.println(retstring);
+            //System.out.println("Received from Server:" + retstring);
           }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
@@ -96,11 +97,11 @@ public class Client {
             buffer = cmd.getBytes();
             sPacket = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostAddress), udpPort);
             udpSocket.send(sPacket);
-            System.out.println("Sent UDP Packet");
+            //System.out.println("Sent UDP Packet");
             rPacket = new DatagramPacket(rbuffer, rbuffer.length);
             udpSocket.receive(rPacket);
             String retstring = new String(rPacket.getData(), 0, rPacket.getLength());
-            System.out.println("Received from Server:" + retstring);
+            System.out.println(retstring);
           }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
@@ -121,11 +122,11 @@ public class Client {
             buffer = cmd.getBytes();
             sPacket = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostAddress), udpPort);
             udpSocket.send(sPacket);
-            System.out.println("Sent UDP Packet");
+            //System.out.println("Sent UDP Packet");
             rPacket = new DatagramPacket(rbuffer, rbuffer.length);
             udpSocket.receive(rPacket);
             String retstring = new String(rPacket.getData(), 0, rPacket.getLength());
-            System.out.println("Received from Server:" + retstring);
+            System.out.println(retstring);
           }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
@@ -142,22 +143,23 @@ public class Client {
           }
           //UDP IMPLEMENATION
           else{
+            //System.out.println("The command that's triggering list fuckup " + cmd);
             byte[] buffer = new byte[cmd.length()];
             buffer = cmd.getBytes();
             sPacket = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(hostAddress), udpPort);
             udpSocket.send(sPacket);
-            System.out.println("Sent UDP Packet: " + new String(buffer));
+            //System.out.println("Sent UDP Packet: " + new String(buffer));
             rPacket = new DatagramPacket(rbuffer, rbuffer.length);
             udpSocket.receive(rPacket);
             String retstring = new String(rPacket.getData(), 0, rPacket.getLength());
-            System.out.println("Received from Server:" + retstring);
+            System.out.println(retstring);
           }
           // TODO: send appropriate command to the server and display the
           // appropriate responses form the server
         } else {
           System.out.println("ERROR: No such command");
         }
-    }
+      }
     } catch(Exception e){
         e.printStackTrace();
     }

@@ -41,14 +41,15 @@ public class Server {
     }
 
     // TODO: handle TCP request from clients
-    try (ServerSocket serverSocket = new ServerSocket(tcpPort)){
-      while(true){
-        Thread thread = new Thread(new ServerThread(serverSocket.accept()));
-        thread.start();
-      }
-    } catch(IOException e){
-        e.printStackTrace();
-    }
+    TCPServer tcpServerThread = new TCPServer(tcpPort);
+    Thread tcpServer = new Thread(tcpServerThread);
+    tcpServer.start();
+
+    //UDP server thread
+    UDPServer udpServer = new UDPServer(udpPort);
+    Thread udpServerThread = new Thread(udpServer);
+    udpServerThread.start();
+
   }
 
   public static synchronized String purchase(String[] st){
