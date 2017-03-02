@@ -23,25 +23,30 @@ public class ServerThread implements Runnable {
         String[] splitIn = inputLine.split(" ");
         if (splitIn[0].equals("purchase")) {
           outputLine = Server.purchase(splitIn);
-          System.out.println(outputLine);
+          out.println(outputLine);
+          out.println("END");
         }
         else if (splitIn[0].equals("cancel")) {
           outputLine = Server.cancel(splitIn);
-          System.out.println(outputLine);
+          out.println(outputLine);
+          out.println("END");
         } 
 
         else if (splitIn[0].equals("search")) {
           outputLine = Server.search(splitIn);
-          System.out.println(outputLine);
+          out.println(outputLine);
+          out.println("END");
         } 
         else if (splitIn[0].equals("list")) {
           outputLine = Server.list(splitIn);
-          System.out.println(outputLine);
+          out.println(outputLine);
+          out.println("END");
         } 
         else {
           System.out.println("ERROR: No such command");
         }
       }
+      socket.close();
     } catch (IOException e) {
           e.printStackTrace();
     }
