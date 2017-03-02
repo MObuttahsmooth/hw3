@@ -22,15 +22,14 @@ public class Client {
     hostAddress = args[0];
     tcpPort = Integer.parseInt(args[1]);
     udpPort = Integer.parseInt(args[2]);
-
     try (
       //Default: Connect to TCP Socket
-      // Socket socket = new Socket(hostAddress, tcpPort);
-      // PrintWriter out =
-      //   new PrintWriter(socket.getOutputStream(), true);
-      // BufferedReader in =
-      //     new BufferedReader(
-      //         new InputStreamReader(socket.getInputStream()));
+      Socket socket = new Socket(hostAddress, tcpPort);
+      PrintWriter out =
+        new PrintWriter(socket.getOutputStream(), true);
+      BufferedReader in =
+          new BufferedReader(
+              new InputStreamReader(socket.getInputStream()));
       //TODO:Go ahead and connect to the UDP Socket as well
       DatagramSocket udpSocket = new DatagramSocket();
     ){
@@ -39,7 +38,7 @@ public class Client {
       while(sc.hasNextLine()) {
         String cmd = sc.nextLine();
         String[] tokens = cmd.split(" ");
-        System.out.println(cmd);
+        String line;
         // setmode T|U – sets the protocol for communication with the server. The protocol is specified
         // by the letter U ot T where U stands for UDP and T stands for TCP. The default mode of
         // communication is TCP.
@@ -48,15 +47,23 @@ public class Client {
           // and display the name of the protocol that will be used in future
           if(tokens[1].equals("T")){
             communicationMode = "TCP";
+            System.out.println("Communication Mode: TCP");
           }
           else{
             communicationMode = "UDP";
+            System.out.println("Communication Mode: UDP");
           }
         }
         else if (tokens[0].equals("purchase")) {
           //TCP IMPLEMENTATION
           if(communicationMode.equals("TCP")){
-            //out.println("purchase " + tokens[1] + " " + tokens[2] + " " + tokens[3]);
+            out.println("purchase " + tokens[1] + " " + tokens[2] + " " + tokens[3]);
+            while((line = in.readLine()) != null){
+              if(line.equals("END")){
+                break;
+              }
+              System.out.println(line);
+            }
           }
           //UDP IMPLEMENTATION
           else{
@@ -75,7 +82,13 @@ public class Client {
         } else if (tokens[0].equals("cancel")) {
           //TCP IMPLEMENATION
           if(communicationMode.equals("TCP")){
-            //out.println("cancel " + tokens[1]);
+            out.println("cancel " + tokens[1]);
+            while((line = in.readLine()) != null){
+              if(line.equals("END")){
+                break;
+              }
+              System.out.println(line);
+            }
           }
           //UDP IMPLEMENTATION
           else{
@@ -94,7 +107,13 @@ public class Client {
         } else if (tokens[0].equals("search")) {
           //TCP IMPLEMENTATION
           if(communicationMode.equals("TCP")){
-            //out.println("search " + tokens[1]);
+            out.println("search " + tokens[1]);
+            while((line = in.readLine()) != null){
+              if(line.equals("END")){
+                break;
+              }
+              System.out.println(line);
+            }
           }
           //UDP IMPLMENTATION
           else{
@@ -113,7 +132,13 @@ public class Client {
         } else if (tokens[0].equals("list")) {
           //TCP IMPLEMENTATION
           if(communicationMode.equals("TCP")){
-            //out.println("list");
+            out.println("list");
+            while((line = in.readLine()) != null){
+              if(line.equals("END")){
+                break;
+              }
+              System.out.println(line);
+            }
           }
           //UDP IMPLEMENATION
           else{
@@ -133,7 +158,6 @@ public class Client {
           System.out.println("ERROR: No such command");
         }
     }
-
     } catch(Exception e){
         e.printStackTrace();
     }
